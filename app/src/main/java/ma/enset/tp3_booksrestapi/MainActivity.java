@@ -82,28 +82,14 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("nbr books", String.valueOf(googleBookResponse.nbrBooks));
 
                         if(googleBookResponse.books!=null){
-//                            Log.i("first book title:", String.valueOf(googleBookResponse.books));
-
                             for(Book book:googleBookResponse.books){
-                                if(book!=null){
-//                            data.add(book.title);
-                                    Log.i("book id:", book.id);
-                                    Log.i("book title:", book.volumeInfo.title);
-                                    for(String author: book.volumeInfo.authors){
-                                        Log.i("author:",  author);
-                                    }
-                                    Log.i("book publisher:", book.volumeInfo.publisher);
-                                    Log.i("book publishedDate:", String.valueOf(book.volumeInfo.publishedDate));
-                                    Log.i("book description:", book.volumeInfo.description);
-                                    Log.i("book description:", book.volumeInfo.imageLinks.smallThumbnail);
-                                }else{
-                                    Log.e("error", "Book is null");
-                                }
+//                                data.add(book);
+                                data.add(book.volumeInfo.title);
                             }
                         }else{
                             Log.e("error", "Books list is null");
                         }
-//                        listViewModel.notifyDataSetChanged();
+                        arrayAdapter.notifyDataSetChanged();
                     }
 
                     @Override
