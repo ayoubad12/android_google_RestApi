@@ -88,14 +88,14 @@ public class MainActivity extends AppCompatActivity {
                                 if(book!=null){
 //                            data.add(book.title);
                                     Log.i("book id:", book.id);
-//                                    Log.i("book title:", book.volumeInfo.title);
-//                                    for(String author: book.volume.authors){
-//                                        Log.i("author:",  author);
-//                                    }
-//                                    Log.i("book publisher:", book.volume.publisher);
-//                                    Log.i("book publishedDate:", String.valueOf(book.volume.publishedDate));
-//                                    Log.i("book description:", book.volume.description);
-//                                    Log.i("book description:", book.volume.imageLinks.smallThumbnail);
+                                    Log.i("book title:", book.volumeInfo.title);
+                                    for(String author: book.volumeInfo.authors){
+                                        Log.i("author:",  author);
+                                    }
+                                    Log.i("book publisher:", book.volumeInfo.publisher);
+                                    Log.i("book publishedDate:", String.valueOf(book.volumeInfo.publishedDate));
+                                    Log.i("book description:", book.volumeInfo.description);
+                                    Log.i("book description:", book.volumeInfo.imageLinks.smallThumbnail);
                                 }else{
                                     Log.e("error", "Book is null");
                                 }
