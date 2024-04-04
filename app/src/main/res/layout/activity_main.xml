@@ -7,6 +7,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
+    <TextView
+        android:id="@+id/textViewAppTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:layout_marginTop="20dp"
+        android:text="Search a Book:"
+        android:textAlignment="center"
+        android:textColor="#6750A3"
+        android:textSize="24sp" />
+
     <EditText
         android:id="@+id/editTextQuery"
         android:layout_width="match_parent"

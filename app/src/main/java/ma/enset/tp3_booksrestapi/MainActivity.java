@@ -2,10 +2,12 @@ package ma.enset.tp3_booksrestapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ma.enset.tp3_booksrestapi.adapter.BookListViewAdapter;
 import ma.enset.tp3_booksrestapi.model.Book;
 import ma.enset.tp3_booksrestapi.model.GoogleBookResponse;
 import ma.enset.tp3_booksrestapi.service.BookServiceApi;
@@ -24,7 +27,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    List<String> data =  new ArrayList<>();
+    List<Book> data =  new ArrayList<>();
+    public static final String BOOK_CLICKED = "book clicked";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +46,10 @@ public class MainActivity extends AppCompatActivity {
         ListView listViewUsers = findViewById(R.id.listViewBooks);
 
 
-        //dump data
-//        String dataa[] ={"C-Programming", "Data Structure", "Database", "Python",
-//                "Java", "Operating System", "Compiler Design", "Android Development"};
-//        for (String element :
-//                dataa) {
-//            data.add(element);
-//        }
 
         //setting the adapter
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        listViewUsers.setAdapter(arrayAdapter);
+        final BookListViewAdapter bookListViewAdapter = new BookListViewAdapter(this, R.layout.books_list_layout, data);
+        listViewUsers.setAdapter(bookListViewAdapter);
 
         //set up retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -83,13 +80,12 @@ public class MainActivity extends AppCompatActivity {
 
                         if(googleBookResponse.books!=null){
                             for(Book book:googleBookResponse.books){
-//                                data.add(book);
-                                data.add(book.volumeInfo.title);
+                                data.add(book);
                             }
                         }else{
                             Log.e("error", "Books list is null");
                         }
-                        arrayAdapter.notifyDataSetChanged();
+                        bookListViewAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -97,6 +93,15 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("error", "Error");
                     }
                 });
+            }
+        });
+        listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Book book = data.get(position) ;
+                Intent intent = new Intent(getApplicationContext(), BookActivity.class);
+                intent.putExtra(BOOK_CLICKED, book);
+                startActivity(intent);
             }
         });
     }
